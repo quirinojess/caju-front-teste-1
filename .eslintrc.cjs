@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    node: true, 
+  },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -17,6 +20,12 @@ module.exports = {
         paths: ['src'],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
+      alias: {
+        map: [
+          ['~', './src']
+        ],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+      }
     },
   },
   rules: {
