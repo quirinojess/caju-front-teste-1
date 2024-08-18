@@ -13,13 +13,18 @@ export const Card = styled(ColumnStart('div'))`
   p {
     margin: 0;
   }
-  box-shadow: ${({ theme }) => theme.shadows.dark};
 `;
 
 export const IconAndText = styled(RowStart('div'))`
   gap: ${({ theme }) => theme.spacing.medium};
-  svg{
-  fill: ${({ theme }) => theme.colors.terciary};
+  flex-wrap: wrap;
+  svg {
+    fill: ${({ theme }) => theme.colors.terciary};
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    font-size: ${({ theme }) => theme.typography.small};
+    word-break: break-word;
+  }
 `;
 
 export const Actions = styled(RowBetween('div'))`

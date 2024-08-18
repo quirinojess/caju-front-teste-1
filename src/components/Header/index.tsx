@@ -11,7 +11,7 @@ const Header = () => {
     <S.Head>
       <S.Title>Caju Front Teste</S.Title>
       {location.pathname !== routes.newUser && (
-        <Button onClick={() => navigate(routes.newUser)}>Nova Admissão</Button>
+        <Button onClick={() => navigate(routes.newUser)}>Cadastrar</Button>
       )}
     </S.Head>
   );

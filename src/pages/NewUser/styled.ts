@@ -10,6 +10,9 @@ export const Container = styled(ColumnStart('section'))`
   border-color: ${({ theme }) => theme.colors.darkLight};
   box-shadow: ${({ theme }) => theme.shadows.dark};
 align-items: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+  width: ${({ theme }) => theme.proportions.threeFourths};
+}
 `;
 
 export const Form = styled.form`

@@ -8,12 +8,17 @@ export const Head = styled(RowBetween('nav'))`
   padding: 0 ${({ theme }) => theme.spacing.big};
   position: fixed;
   top: 0;
-   box-sizing: border-box; 
+  box-sizing: border-box;
   overflow: hidden;
-  
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 0 ${({ theme }) => theme.spacing.medium};
+  }
 `;
 
 export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.typography.h1};
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.typography.medium};
+  }
 `;

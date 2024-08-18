@@ -23,7 +23,7 @@ export const Button = styled(RowAround('button'))<StyledButtonProps>`
   color: ${({ $variant, theme }) => ($variant ? theme.colors.white : theme.colors.deepDark)};
   box-shadow: ${(props) => props.theme.shadows.dark};
   border-radius: ${(props) => props.theme.borderRadius.small};
-  font-size: ${({ $variant, theme }) => ($variant ? theme.typography.small : theme.typography.p)};
+  font-size: ${({ $variant, theme }) => ($variant ? theme.typography.p : theme.typography.medium)};
   padding: ${({ $variant, theme }) => ($variant ? theme.spacing.small : theme.spacing.medium)} 
     ${({ $variant, theme }) => ($variant ? theme.spacing.small : theme.spacing.large)};
   margin: ${(props) => props.theme.spacing.large} 0;
@@ -31,4 +31,8 @@ export const Button = styled(RowAround('button'))<StyledButtonProps>`
   outline: none;
   border: none;
   cursor: pointer;
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+  font-size: ${({ $variant, theme }) => ($variant ? theme.typography.small : theme.typography.p)};
+    padding: ${({ $variant, theme }) => ($variant ? theme.spacing.verySmall : theme.spacing.small)} 
+  }
 `;

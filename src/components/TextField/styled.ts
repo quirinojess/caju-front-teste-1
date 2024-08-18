@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 export const InputControl = styled.div`
   margin: ${({ theme }) => theme.spacing.small} 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  width: ${({ theme }) => theme.proportions.full}
+  }
 `;
 
 export const Label = styled.div`

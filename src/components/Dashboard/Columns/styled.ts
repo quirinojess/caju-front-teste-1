@@ -28,6 +28,7 @@ export const Container = styled(RowBetween('div'))`
   margin-top: ${({ theme }) => theme.spacing.medium};
   width: ${({ theme }) => theme.proportions.full};
   flex-wrap: wrap;
+ overflow: hidden;
 `;
 
 export const Column = styled.div<{ status: RegistrationStatus }>`
@@ -36,7 +37,10 @@ export const Column = styled.div<{ status: RegistrationStatus }>`
     registrationStatusStyles[status].background};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   min-height: 80vh;
-  max-height: 80vh;
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  width: ${({ theme }) => theme.proportions.full};
+    min-height: auto;
+  }
 `;
 
 export const TitleColumn = styled.h3<{ status: RegistrationStatus }>`
@@ -47,4 +51,5 @@ export const TitleColumn = styled.h3<{ status: RegistrationStatus }>`
 export const CollumContent = styled.div`
   overflow: auto;
   max-height: ${({ theme }) => theme.proportions.threeFourths};
+
 `;

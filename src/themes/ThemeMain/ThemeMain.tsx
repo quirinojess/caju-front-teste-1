@@ -25,7 +25,7 @@ const ThemeMain: IThemeMain = {
     h3: '0.8em',
     h4: '0.9em',
     p: '1em',
-    small: '0.9em',
+    small: '0.7em',
     medium: '1.1em',
     large: '2em',
   },
