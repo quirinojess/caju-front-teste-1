@@ -1,14 +1,31 @@
 import styled from 'styled-components';
 import { RowAround } from '~/themes/CommonAligns';
 
-export const Button = styled(RowAround('button'))`
-  background-color: ${(props) => props.theme.colors.terciary};
-  color: ${(props) => props.theme.colors.deepDark};
+interface StyledButtonProps {
+  variant?: 'REVIEW' | 'REPROVED' | 'APROVED';
+}
+
+const getvariantColor = (variant: StyledButtonProps['variant'], theme: any) => {
+  switch (variant) {
+    case 'REVIEW':
+      return theme.colors.secondary;
+    case 'REPROVED':
+      return theme.colors.primary;
+    case 'APROVED':
+      return theme.colors.terciary;
+    default:
+      return theme.colors.terciary;
+  }
+};
+
+export const Button = styled(RowAround('button'))<StyledButtonProps>`
+  background-color: ${({ $variant, theme }) => getvariantColor($variant, theme)};
+  color: ${({ $variant, theme }) => ($variant ? theme.colors.white : theme.colors.deepDark)};
   box-shadow: ${(props) => props.theme.shadows.dark};
   border-radius: ${(props) => props.theme.borderRadius.small};
-  font-size: ${(props) => props.theme.typography.p};
-  padding: ${(props) => props.theme.spacing.medium}
-    ${(props) => props.theme.spacing.large};
+  font-size: ${({ $variant, theme }) => ($variant ? theme.typography.small : theme.typography.p)};
+  padding: ${({ $variant, theme }) => ($variant ? theme.spacing.small : theme.spacing.medium)} 
+    ${({ $variant, theme }) => ($variant ? theme.spacing.small : theme.spacing.large)};
   margin: ${(props) => props.theme.spacing.large} 0;
   font-weight: 600;
   outline: none;
