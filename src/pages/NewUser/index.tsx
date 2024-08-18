@@ -1,28 +1,129 @@
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '~/components/TextField';
 import * as S from './styled.ts';
 import Button from '~/components/Buttons';
 import { HiOutlineArrowLeft } from 'react-icons/hi';
 import Icons from '~/components/Icons';
-import { useHistory } from 'react-router-dom';
 import routes from '~/router/routes';
+import { TAdmission } from '~/types/TAdmissions/index.ts';
+import { admissionsService } from '~/Services/Admissions/index.ts';
+import { cpfMask, isValidCpf } from '~/utils/cpfHelpers/index.tsx';
+import { emailRegex, nameRegex } from '~/utils/regexToValidation/index.tsx';
 
 const NewUserPage = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TAdmission>();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const history = useHistory();
   const goToHome = () => {
     history.push(routes.dashboard);
   };
+  const onSubmit: SubmitHandler<TAdmission> = async (data) => {
+    setLoading(true);
+
+    const result = await admissionsService.postAdmission({
+      ...data,
+      status: 'REVIEW',
+    });
+
+    if (result) {
+      setLoading(false);
+      goToHome();
+    }
+  };
 
   return (
     <S.Container>
+      {loading && (
+        <S.Loading>Carregando, por favor aguarde alguns instantes...</S.Loading>
+      )}
       <Icons onClick={() => goToHome()} aria-label="back">
         <HiOutlineArrowLeft size={24} />
       </Icons>
-      <S.Form>
-        <TextField placeholder="Nome" label="Nome" />
-        <TextField placeholder="Email" label="Email" type="email" />
-        <TextField placeholder="CPF" label="CPF" />
-        <TextField label="Data de admissão" type="date" />
-        <Button onClick={() => {}}>Cadastrar</Button>
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="employeeName"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Nome é obrigatório',
+            pattern: {
+              value: nameRegex,
+              message:
+                'Nome Inválido, deve conter ao menos 2 caracteres e um espaço',
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              placeholder="Nome"
+              label="Nome"
+              {...field}
+              error={errors.employeeName?.message}
+            />
+          )}
+        />
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Email é obrigatório',
+            pattern: {
+              value: emailRegex,
+              message: 'Email inválido',
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              placeholder="Email"
+              label="Email"
+              type="email"
+              {...field}
+              error={errors.email?.message}
+            />
+          )}
+        />
+        <Controller
+          name="cpf"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'CPF é obrigatório',
+            validate: {
+              isValidCpf: (v) => isValidCpf(v) || 'CPF inválido',
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              placeholder="CPF"
+              label="CPF"
+              value={cpfMask(field.value || '')}
+              onChange={(e) => field.onChange(e.target.value)}
+              error={errors.cpf?.message}
+            />
+          )}
+        />
+        <Controller
+          name="admissionDate"
+          control={control}
+          defaultValue=""
+          rules={{ required: 'Data de admissão é obrigatória' }}
+          render={({ field }) => (
+            <TextField
+              label="Data de admissão"
+              type="date"
+              {...field}
+              error={errors.admissionDate?.message}
+            />
+          )}
+        />
+        <Button type="submit">Cadastrar</Button>
       </S.Form>
     </S.Container>
   );
