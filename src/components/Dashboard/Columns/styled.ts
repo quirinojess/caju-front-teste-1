@@ -27,10 +27,11 @@ export const Container = styled(RowBetween('div'))`
   gap: ${({ theme }) => theme.spacing.large};
   margin-top: ${({ theme }) => theme.spacing.medium};
   width: ${({ theme }) => theme.proportions.full};
+  flex-wrap: wrap;
 `;
 
 export const Column = styled.div<{ status: RegistrationStatus }>`
-  width: ${(props) => props.theme.proportions.full};
+  width: ${(props) => props.theme.proportions.oneFourth};
   background-color: ${({ status }) =>
     registrationStatusStyles[status].background};
   border-radius: ${({ theme }) => theme.borderRadius.medium};

@@ -11,19 +11,20 @@ export const Label = styled.div`
 `;
 
 export const Input = styled.input`
+  width: ${({ theme }) => theme.proportions.full};
   background: ${({ theme }) => theme.colors.white};
   border: ${({ theme }) => theme.borders.thin};
-  border-color: ${({ theme }) => theme.colors.darkLight};
+  border-color: ${({ theme }) => theme.colors.darkMedium};
   transition: ${({ theme }) => theme.transitions.short};
   font-size: ${({ theme }) => theme.typography.small};
-  color: ${({ theme }) => theme.colors.darkLight};
+  color: ${({ theme }) => theme.colors.darkMedium};
   line-height: ${({ theme }) => theme.typography.medium};
   border-radius: ${({ theme }) => theme.borderRadius.small};
   padding: ${({ theme }) => theme.spacing.small};
   margin: ${({ theme }) => theme.spacing.small} 0;
   &:focus {
     outline: none;
-    color: ${({ theme }) => theme.colors.darkMedium};
+    color: ${({ theme }) => theme.colors.darkDeep};
     border-color: ${({ theme }) => theme.colors.terciary};
     box-shadow: ${({ theme }) => theme.shadows.green};
   }

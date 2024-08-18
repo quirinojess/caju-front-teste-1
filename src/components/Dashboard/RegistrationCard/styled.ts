@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RowBetween, ColumnStart } from '~/themes/CommonAligns';
+import { RowBetween, RowStart, ColumnStart } from '~/themes/CommonAligns';
 
 export const Card = styled(ColumnStart('div'))`
   gap: ${({ theme }) => theme.spacing.verySmall};
@@ -16,8 +16,10 @@ export const Card = styled(ColumnStart('div'))`
   box-shadow: ${({ theme }) => theme.shadows.dark};
 `;
 
-export const IconAndText = styled(RowBetween('div'))`
+export const IconAndText = styled(RowStart('div'))`
   gap: ${({ theme }) => theme.spacing.medium};
+  svg{
+  fill: ${({ theme }) => theme.colors.terciary};
 `;
 
 export const Actions = styled(RowBetween('div'))`

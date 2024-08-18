@@ -1,22 +1,18 @@
 import styled from 'styled-components';
-import { ColumnStart, RowAround } from '~/themes/CommonAligns';
+import { ColumnStart } from '~/themes/CommonAligns';
 
 export const Container = styled(ColumnStart('section'))`
+  width: ${({ theme }) => theme.proportions.half};
+  padding: ${({ theme }) => theme.spacing.medium};
+  margin: ${({ theme }) => theme.spacing.center};
   margin-top: ${({ theme }) => theme.spacing.veryBig};
+  border: ${({ theme }) => theme.borders.thin};
+  border-color: ${({ theme }) => theme.colors.darkLight};
+  box-shadow: ${({ theme }) => theme.shadows.dark};
+align-items: center;
 `;
 
 export const Form = styled.form`
-  margin: ${({ theme }) => theme.spacing.large} 0;
+  margin: ${({ theme }) => theme.spacing.medium} 0;
 `;
 
-export const Loading = styled(RowAround('div'))`
-  width: ${({ theme }) => theme.proportions.full};
-  height: ${({ theme }) => theme.proportions.full};
-  background: ${({ theme }) => theme.colors.transparency};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.typography.large};
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-`;
