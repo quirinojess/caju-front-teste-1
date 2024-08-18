@@ -1,8 +1,6 @@
 const routes = {
-  identify: "/identify",
-  dashboard: "/dashboard",
-  history: "/history",
-  newUser: "/new-user"
+  dashboard: "/pagina-inicial",
+  newUser: "/cadastrar-usuario"
 };
 
 export default routes;

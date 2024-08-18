@@ -1,9 +1,7 @@
 import { HiRefresh } from 'react-icons/hi';
-import { useHistory } from 'react-router-dom';
 import Button from '~/components/Buttons';
 import Icons from '~/components/Icons';
 import TextField from '~/components/TextField';
-import routes from '~/router/routes';
 import * as S from './styled';
 import { useEffect, useState } from 'react';
 import { cpfMask, isValidCpf } from '~/utils/cpfHelpers';
@@ -14,11 +12,6 @@ type TSearchBar = {
 
 const SearchBar = ({ loadAdmissions }: TSearchBar) => {
   const [cpf, setCpf] = useState<string>('');
-  const history = useHistory();
-
-  const goToNewAdmissionPage = () => {
-    history.push(routes.newUser);
-  };
 
   useEffect(() => {
     if (isValidCpf(cpf)) {
@@ -29,25 +22,35 @@ const SearchBar = ({ loadAdmissions }: TSearchBar) => {
 
   return (
     <S.Container>
-      <Button onClick={() => loadAdmissions('status', 'REVIEW')}>
-        Revisões
-      </Button>
-      <Button onClick={() => loadAdmissions('status', 'APROVED')}>
-        Aprovados
-      </Button>
-      <Button onClick={() => loadAdmissions('status', 'REPROVED')}>
-        Reprovados
-      </Button>
       <TextField
-        placeholder="Digite um CPF válido"
+        placeholder="Filtre por CPF"
         value={cpfMask(cpf)}
         onChange={(e) => setCpf(e.target.value)}
       />
-      <S.Actions onClick={() => loadAdmissions()}>
-        <Icons aria-label="refetch">
+
+      <S.Actions>
+        <Button
+          variant="REVIEW"
+          onClick={() => loadAdmissions('status', 'REVIEW')}
+        >
+          Revisões
+        </Button>
+        <Button
+          variant="APROVED"
+          onClick={() => loadAdmissions('status', 'APROVED')}
+        >
+          Aprovados
+        </Button>
+        <Button
+          variant="REPROVED"
+          onClick={() => loadAdmissions('status', 'REPROVED')}
+        >
+          Reprovados
+        </Button>
+
+        <Icons aria-label="refetch" onClick={() => loadAdmissions()}>
           <HiRefresh />
         </Icons>
-        <Button onClick={() => goToNewAdmissionPage()}>Nova Admissão</Button>
       </S.Actions>
     </S.Container>
   );

@@ -10,15 +10,14 @@ import { TAdmission } from '~/types/TAdmissions';
 
 type TRegistrationCard = {
   data: any;
-  updateAdmissions: (body: TAdmission, userId: string) => void;
-  deleteAdmission: (userId: string) => void;
+  handleOpenModal: (
+    userId: string,
+    actionType: 'delete' | 'approve' | 'reprove' | 'review',
+    body?: TAdmission,
+  ) => void;
 };
 
-const RegistrationCard = ({
-  data,
-  updateAdmissions,
-  deleteAdmission,
-}: TRegistrationCard) => {
+const RegistrationCard = ({ data, handleOpenModal }: TRegistrationCard) => {
   return (
     <S.Card>
       <S.IconAndText>
@@ -33,30 +32,48 @@ const RegistrationCard = ({
         <HiOutlineCalendar />
         <span>{data.admissionDate}</span>
       </S.IconAndText>
-      <S.Actions>
-        <Buttons
-          onClick={() =>
-            updateAdmissions({ ...data, status: 'REPROVED' }, data.id)
-          }
-        >
-          Reprovar
-        </Buttons>
-        <Buttons
-          onClick={() =>
-            updateAdmissions({ ...data, status: 'APROVED' }, data.id)
-          }
-        >
-          Aprovar
-        </Buttons>
-        <Buttons
-          onClick={() =>
-            updateAdmissions({ ...data, status: 'REVIEW' }, data.id)
-          }
-        >
-          Revisar novamente
-        </Buttons>
 
-        <HiOutlineTrash onClick={() => deleteAdmission(data.id)} />
+      <S.Actions>
+        {data.status === 'REVIEW' && (
+          <>
+            <Buttons
+              variant="REPROVED"
+              onClick={() =>
+                handleOpenModal(data.id, 'reprove', {
+                  ...data,
+                  status: 'REPROVED',
+                })
+              }
+            >
+              Reprovar
+            </Buttons>
+            <Buttons
+              variant="APROVED"
+              onClick={() =>
+                handleOpenModal(data.id, 'approve', {
+                  ...data,
+                  status: 'APROVED',
+                })
+              }
+            >
+              Aprovar
+            </Buttons>
+          </>
+        )}
+        {data.status !== 'REVIEW' && (
+          <Buttons
+            variant="REVIEW"
+            onClick={() =>
+              handleOpenModal(data.id, 'review', {
+                ...data,
+                status: 'REVIEW',
+              })
+            }
+          >
+            Revisar novamente
+          </Buttons>
+        )}
+        <HiOutlineTrash onClick={() => handleOpenModal(data.id, 'delete')} />
       </S.Actions>
     </S.Card>
   );

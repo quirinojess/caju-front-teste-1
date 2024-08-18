@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import TextField from '~/components/TextField';
 import * as S from './styled.ts';
@@ -11,6 +11,7 @@ import { TAdmission } from '~/types/TAdmissions/index.ts';
 import { admissionsService } from '~/Services/Admissions/index.ts';
 import { cpfMask, isValidCpf } from '~/utils/cpfHelpers/index.tsx';
 import { emailRegex, nameRegex } from '~/utils/regexToValidation/index.tsx';
+import { Loading } from '~/components';
 
 const NewUserPage = () => {
   const {
@@ -20,10 +21,8 @@ const NewUserPage = () => {
   } = useForm<TAdmission>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const history = useHistory();
-  const goToHome = () => {
-    history.push(routes.dashboard);
-  };
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<TAdmission> = async (data) => {
     setLoading(true);
 
@@ -34,16 +33,14 @@ const NewUserPage = () => {
 
     if (result) {
       setLoading(false);
-      goToHome();
+      navigate(routes.dashboard);
     }
   };
 
   return (
     <S.Container>
-      {loading && (
-        <S.Loading>Carregando, por favor aguarde alguns instantes...</S.Loading>
-      )}
-      <Icons onClick={() => goToHome()} aria-label="back">
+      {loading && <Loading />}
+      <Icons onClick={() => navigate(routes.dashboard)} aria-label="back">
         <HiOutlineArrowLeft size={24} />
       </Icons>
       <S.Form onSubmit={handleSubmit(onSubmit)}>
