@@ -4,7 +4,7 @@ import { ThemeMain } from '~/themes';
 
 const theme = ThemeMain;
 
-type RegistrationStatus = 'REVIEW' | 'APPROVED' | 'REPROVED';
+type RegistrationStatus = 'REVIEW' | 'APROVED' | 'REPROVED';
 
 const registrationStatusStyles: {
   [key in RegistrationStatus]: { background: string; title: string };
@@ -13,7 +13,7 @@ const registrationStatusStyles: {
     background: theme.colors.secondaryLight,
     title: theme.colors.secondary,
   },
-  APPROVED: {
+  APROVED: {
     background: theme.colors.terciaryLight,
     title: theme.colors.terciary,
   },

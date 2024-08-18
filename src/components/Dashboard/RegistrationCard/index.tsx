@@ -6,32 +6,57 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from 'react-icons/hi';
+import { TAdmission } from '~/types/TAdmissions';
 
-type Props = {
+type TRegistrationCard = {
   data: any;
+  updateAdmissions: (body: TAdmission, userId: string) => void;
+  deleteAdmission: (userId: string) => void;
 };
 
-const RegistrationCard = (props: Props) => {
+const RegistrationCard = ({
+  data,
+  updateAdmissions,
+  deleteAdmission,
+}: TRegistrationCard) => {
   return (
     <S.Card>
       <S.IconAndText>
         <HiOutlineUser />
-        <h3>{props.data.employeeName}</h3>
+        <h3>{data.employeeName}</h3>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineMail />
-        <p>{props.data.email}</p>
+        <p>{data.email}</p>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineCalendar />
-        <span>{props.data.admissionDate}</span>
+        <span>{data.admissionDate}</span>
       </S.IconAndText>
       <S.Actions>
-        <Buttons>Reprovar</Buttons>
-        <Buttons>Aprovar</Buttons>
-        <Buttons>Revisar novamente</Buttons>
+        <Buttons
+          onClick={() =>
+            updateAdmissions({ ...data, status: 'REPROVED' }, data.id)
+          }
+        >
+          Reprovar
+        </Buttons>
+        <Buttons
+          onClick={() =>
+            updateAdmissions({ ...data, status: 'APROVED' }, data.id)
+          }
+        >
+          Aprovar
+        </Buttons>
+        <Buttons
+          onClick={() =>
+            updateAdmissions({ ...data, status: 'REVIEW' }, data.id)
+          }
+        >
+          Revisar novamente
+        </Buttons>
 
-        <HiOutlineTrash />
+        <HiOutlineTrash onClick={() => deleteAdmission(data.id)} />
       </S.Actions>
     </S.Card>
   );

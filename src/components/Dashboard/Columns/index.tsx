@@ -1,34 +1,49 @@
 import * as S from './styled';
 import RegistrationCard from '../RegistrationCard';
+import { TAdmission, TAdmissions } from '~/types/TAdmissions';
 
 const allColumns = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
-  { status: 'APPROVED', title: 'Aprovado' },
+  { status: 'APROVED', title: 'Aprovado' },
   { status: 'REPROVED', title: 'Reprovado' },
 ];
 
-type Props = {
-  registrations?: any[];
+type TColumns = {
+  registrations?: TAdmissions;
+  updateAdmissions: (body: TAdmission, userId: string) => void;
+  deleteAdmission: (userId: string) => void;
 };
-const Columns = (props: Props) => {
+
+const Columns = ({
+  registrations,
+  updateAdmissions,
+  deleteAdmission,
+}: TColumns) => {
   return (
     <S.Container>
-      {allColumns.map((collum) => {
+      {allColumns.map((column) => {
         return (
-          <S.Column status={collum.status} key={collum.title}>
+          <S.Column status={column.status} key={column.title}>
             <>
-              <S.TitleColumn status={collum.status}>
-                {collum.title}
+              <S.TitleColumn status={column.status}>
+                {column.title}
               </S.TitleColumn>
               <S.CollumContent>
-                {props?.registrations?.map((registration) => {
-                  return (
-                    <RegistrationCard
-                      data={registration}
-                      key={registration.id}
-                    />
-                  );
-                })}
+                {registrations
+                  ?.filter(
+                    (registration: TAdmission) =>
+                      registration.status === column.status,
+                  )
+                  .map((filteredRegistration: TAdmission) => {
+                    return (
+                      <RegistrationCard
+                        data={filteredRegistration}
+                        key={filteredRegistration.id}
+                        updateAdmissions={updateAdmissions}
+                        deleteAdmission={deleteAdmission}
+                      />
+                    );
+                  })}
               </S.CollumContent>
             </>
           </S.Column>
@@ -37,4 +52,5 @@ const Columns = (props: Props) => {
     </S.Container>
   );
 };
+
 export default Columns;
