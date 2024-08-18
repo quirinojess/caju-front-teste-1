@@ -14,7 +14,7 @@ async function getAdmissions(filterBy?: string, query?: string) {
 
     return data;
   } catch (error) {
-    return console.log('error', error);
+    throw new Error('Falha ao carregar os registros. Por favor, tente mais tarde.');
   }
 }
 
@@ -28,7 +28,7 @@ async function postAdmission(body: TAdmission) {
 
     return data;
   } catch (error) {
-    return error;
+    throw new Error('Falha ao adicionar um novo registro. Por favor, tente novamente.');
   }
 }
 
@@ -42,7 +42,7 @@ async function updateAdmissions(body: TAdmission, userId: string) {
 
     return data;
   } catch (error) {
-    return error;
+    throw new Error('Falha na requisição. Por favor, tente novamente.');
   }
 }
 
@@ -56,9 +56,10 @@ async function deleteAdmission(userId: string) {
 
     return data;
   } catch (error) {
-    return error;
+    throw new Error('Falha na requisição. Por favor, tente novamente.');
   }
 }
+
 
 export const admissionsService = {
   getAdmissions,
