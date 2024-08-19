@@ -34,8 +34,12 @@ const DashboardPage = () => {
     setLoading(true);
     try {
       const result = await admissionsService.getAdmissions(filterBy, query);
+
       if (result) {
         setRegistrations(result);
+        if (result.length === 0) {
+          toast.error('Nenhum resultado encontrado para este CPF.');
+        }
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -48,6 +52,7 @@ const DashboardPage = () => {
     setLoading(true);
     try {
       const result = await admissionsService.updateAdmissions(body, userId);
+
       if (result) {
         loadAdmissions();
       }

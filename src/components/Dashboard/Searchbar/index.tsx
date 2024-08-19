@@ -5,6 +5,7 @@ import TextField from '~/components/TextField';
 import * as S from './styled';
 import { useEffect, useState } from 'react';
 import { cpfMask, isValidCpf } from '~/utils/cpfHelpers';
+import { toast } from 'react-toastify';
 
 type TSearchBar = {
   loadAdmissions: (filterBy?: string, query?: string) => void;
@@ -14,8 +15,12 @@ const SearchBar = ({ loadAdmissions }: TSearchBar) => {
   const [cpf, setCpf] = useState<string>('');
 
   useEffect(() => {
-    if (isValidCpf(cpf)) {
+    if (!cpf) {
+      loadAdmissions();
+    } else if (isValidCpf(cpf)) {
       loadAdmissions('cpf', cpf);
+    } else if (cpf.length === 14) {
+      toast.error('CPF inválido');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cpf]);
