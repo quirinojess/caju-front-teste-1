@@ -1,6 +1,7 @@
 import * as S from './styled';
 import RegistrationCard from '../RegistrationCard';
 import { TAdmission, TAdmissions } from '~/types/TAdmissions';
+import { useStatus } from '~/hooks';
 
 const allColumns = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
@@ -10,36 +11,47 @@ const allColumns = [
 
 type TColumns = {
   registrations?: TAdmissions;
-  handleOpenModal: (
-    userId: string,
-    actionType: 'delete' | 'approve' | 'reprove' | 'review',
-    body?: TAdmission,
-  ) => void;
+  handleOpenModal: (userId: string, body?: TAdmission) => void;
 };
 
 const Columns = ({ registrations = [], handleOpenModal }: TColumns) => {
+  const { statusFilter } = useStatus();
   return (
     <S.Container>
-      {allColumns.map((column) => (
-        <S.Column status={column.status} key={column.title}>
-          <>
-            <S.TitleColumn status={column.status}>{column.title}</S.TitleColumn>
-            <S.CollumContent>
-              {registrations
-                .filter((registration: TAdmission) => {
-                  return registration.status === column.status;
-                })
-                .map((filteredRegistration: TAdmission) => (
-                  <RegistrationCard
-                    data={filteredRegistration}
-                    key={filteredRegistration.id}
-                    handleOpenModal={handleOpenModal}
-                  />
-                ))}
-            </S.CollumContent>
-          </>
-        </S.Column>
-      ))}
+      {allColumns.map((column) => {
+        const filteredRegistrations = registrations.filter(
+          (registration: TAdmission) => registration.status === column.status,
+        );
+
+        if (filteredRegistrations.length === 0 && statusFilter !== 'ALL') {
+          return null;
+        }
+
+        return (
+          <S.Column
+            statusColumn={column.status}
+            key={column.status}
+            status={statusFilter}
+          >
+            <>
+              <S.TitleColumn statusColumn={column.status}>
+                {column.title}
+              </S.TitleColumn>
+              <S.CollumContent>
+                {filteredRegistrations.map(
+                  (filteredRegistration: TAdmission) => (
+                    <RegistrationCard
+                      data={filteredRegistration}
+                      key={filteredRegistration.id}
+                      handleOpenModal={handleOpenModal}
+                    />
+                  ),
+                )}
+              </S.CollumContent>
+            </>
+          </S.Column>
+        );
+      })}
     </S.Container>
   );
 };

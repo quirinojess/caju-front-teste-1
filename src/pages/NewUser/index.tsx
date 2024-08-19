@@ -8,10 +8,11 @@ import { HiOutlineArrowLeft } from 'react-icons/hi';
 import Icons from '~/components/Icons';
 import routes from '~/router/routes';
 import { TAdmission } from '~/types/TAdmissions/index.ts';
-import { admissionsService } from '~/Services/Admissions/index.ts';
+import { admissionsService } from '~/services/Admissions/index.ts';
 import { cpfMask, isValidCpf } from '~/utils/cpfHelpers/index.tsx';
 import { emailRegex, nameRegex } from '~/utils/regexToValidation/index.tsx';
 import { Loading } from '~/components';
+import { toast } from 'react-toastify';
 
 const NewUserPage = () => {
   const {
@@ -33,7 +34,10 @@ const NewUserPage = () => {
 
     if (result) {
       setLoading(false);
-      navigate(routes.dashboard);
+      toast.success('Usuário cadastrado com sucesso');
+      setTimeout(() => {
+        navigate(routes.dashboard);
+      }, 5000);
     }
   };
 

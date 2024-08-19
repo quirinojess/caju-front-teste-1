@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { RowAround } from '~/themes/CommonAligns';
+import { TStatusRegistration } from '~/types/TStatus';
 
 interface StyledButtonProps {
-  variant?: 'REVIEW' | 'REPROVED' | 'APROVED';
+  variant?: TStatusRegistration;
 }
 
 const getvariantColor = (variant: StyledButtonProps['variant'], theme: any) => {

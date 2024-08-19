@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { RowBetween } from '~/themes/CommonAligns';
 import { ThemeMain } from '~/themes';
+import { TStatusFilter } from '~/types/TStatus';
 
 const theme = ThemeMain;
 
-type RegistrationStatus = 'REVIEW' | 'APROVED' | 'REPROVED';
-
-const registrationStatusStyles: {
-  [key in RegistrationStatus]: { background: string; title: string };
+const statusRegistrationColumnStyles: {
+  [key in Exclude<TStatusFilter, 'ALL'>]: {
+    background: string;
+    title: string;
+  };
 } = {
   REVIEW: {
     background: theme.colors.secondaryLight,
@@ -27,29 +29,34 @@ export const Container = styled(RowBetween('div'))`
   gap: ${({ theme }) => theme.spacing.large};
   margin-top: ${({ theme }) => theme.spacing.medium};
   width: ${({ theme }) => theme.proportions.full};
+  align-items: flex-start;
   flex-wrap: wrap;
- overflow: hidden;
+  overflow: hidden;
 `;
 
-export const Column = styled.div<{ status: RegistrationStatus }>`
-  width: ${(props) => props.theme.proportions.oneFourth};
-  background-color: ${({ status }) =>
-    registrationStatusStyles[status].background};
+export const Column = styled.div<{
+  statusColumn: Exclude<TStatusFilter, 'ALL'>;
+  status: TStatusFilter;
+}>`
+  width: ${({ theme, status }) =>
+    status === 'ALL' ? theme.proportions.oneFourth : theme.proportions.full};
+  background-color: ${({ statusColumn }) =>  statusRegistrationColumnStyles[statusColumn]?.background
+  };
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  min-height: 80vh;
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-  width: ${({ theme }) => theme.proportions.full};
-    min-height: auto;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: ${({ theme }) => theme.proportions.full};
   }
 `;
 
-export const TitleColumn = styled.h3<{ status: RegistrationStatus }>`
-  color: ${({ status }) => registrationStatusStyles[status].title};
+export const TitleColumn = styled.h3<{
+  statusColumn:  Exclude<TStatusFilter, 'ALL'>;
+}>`
+  color: ${({ statusColumn }) =>
+    statusRegistrationColumnStyles[statusColumn].title};
   margin: ${({ theme }) => theme.spacing.large};
 `;
 
 export const CollumContent = styled.div`
   overflow: auto;
   max-height: ${({ theme }) => theme.proportions.threeFourths};
-
 `;

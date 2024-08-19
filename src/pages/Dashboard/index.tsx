@@ -2,32 +2,24 @@ import { useState, useEffect } from 'react';
 import * as S from './styled';
 import { Columns, SearchBar } from '~/components/Dashboard';
 import { TAdmission, TAdmissions } from '~/types/TAdmissions';
-import { admissionsService } from '~/Services/Admissions';
+import { admissionsService } from '~/services/Admissions';
 import { ConfirmationModal, Loading } from '~/components';
 import { toast } from 'react-toastify';
+import { useStatus } from '~/hooks';
 
 const DashboardPage = () => {
   const [registrations, setRegistrations] = useState<TAdmissions>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalAction, setModalAction] = useState<() => void>(() => {});
-  const [action, setAction] = useState<
-    'delete' | 'approve' | 'reprove' | 'review'
-  >('delete');
 
-  const getModalActionString = (actionType: string): string => {
-    switch (actionType) {
-      case 'approve':
-        return 'aprovar';
-      case 'reprove':
-        return 'reprovar';
-      case 'review':
-        return 'revisar';
-      case 'delete':
-        return 'deletar';
-      default:
-        return '';
-    }
+  const { statusRegistration, setStatusFilter } = useStatus();
+
+  const actionStringMap: { [key: string]: string } = {
+    APROVED: 'aprovar',
+    REPROVED: 'reprovar',
+    REVIEW: 'revisar',
+    DELETE: 'deletar',
   };
 
   async function loadAdmissions(filterBy?: string, query?: string) {
@@ -36,6 +28,9 @@ const DashboardPage = () => {
       const result = await admissionsService.getAdmissions(filterBy, query);
       if (result) {
         setRegistrations(result);
+        if (result.length === 0) {
+          toast.error('Nenhum resultado encontrado.');
+        }
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -49,6 +44,7 @@ const DashboardPage = () => {
     try {
       const result = await admissionsService.updateAdmissions(body, userId);
       if (result) {
+        setStatusFilter('ALL');
         loadAdmissions();
       }
     } catch (error: any) {
@@ -62,6 +58,7 @@ const DashboardPage = () => {
     try {
       const result = await admissionsService.deleteAdmission(userId);
       if (result) {
+        setStatusFilter('ALL');
         loadAdmissions();
       }
     } catch (error: any) {
@@ -70,28 +67,24 @@ const DashboardPage = () => {
     }
   }
 
-  function handleOpenModal(
-    userId: string,
-    actionType: 'delete' | 'approve' | 'reprove' | 'review',
-    userData?: TAdmission,
-  ) {
-    setAction(actionType);
-    switch (actionType) {
-      case 'delete':
-        setModalAction(() => () => deleteAdmission(userId));
-        break;
-      case 'approve':
-      case 'reprove':
-      case 'review':
-        if (userData) {
-          setModalAction(() => () => updateAdmissions(userData, userId));
-        } else {
-          toast.error('Falha ao carregar dados do usuário');
-        }
-        break;
-      default:
-        break;
+  function handleOpenModal(userId: string, userData?: TAdmission) {
+    if (statusRegistration === 'DELETE') {
+      setModalAction(() => () => deleteAdmission(userId));
+    } else if (
+      statusRegistration === 'APROVED' ||
+      statusRegistration === 'REPROVED' ||
+      statusRegistration === 'REVIEW'
+    ) {
+      if (userData) {
+        setModalAction(() => () => updateAdmissions(userData, userId));
+      } else {
+        toast.error('Falha ao carregar dados do usuário');
+        return;
+      }
+    } else {
+      return;
     }
+
     setIsModalOpen(true);
   }
 
@@ -112,14 +105,14 @@ const DashboardPage = () => {
       )}
       <ConfirmationModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
         onConfirm={() => {
           modalAction();
           setIsModalOpen(false);
         }}
-        message={`Você tem certeza que deseja ${getModalActionString(
-          action,
-        )} este usuário?`}
+        message={`Você tem certeza que deseja ${actionStringMap[status]} este usuário?`}
       />
     </S.Container>
   );

@@ -1,10 +1,11 @@
+import { TStatusRegistration } from '~/types/TStatus';
 import * as S from './styled';
 
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'REVIEW' | 'REPROVED' | 'APROVED';
+  variant?: TStatusRegistration;
 }
 
 const Button = ({
