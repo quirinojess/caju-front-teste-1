@@ -5,16 +5,19 @@ import { GlobalStyle, ThemeMain } from '~/themes';
 import Router from './router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { StatusProvider } from './contexts/StatusContext';
 
 function App() {
   return (
     <ThemeProvider theme={ThemeMain}>
-      <GlobalStyle />
-      <BrowserRouter>
-        <Header />
-        <ToastContainer />
-        <Router />
-      </BrowserRouter>
+      <StatusProvider>
+        <GlobalStyle />
+        <BrowserRouter>
+          <Header />
+          <ToastContainer />
+          <Router />
+        </BrowserRouter>
+      </StatusProvider>
     </ThemeProvider>
   );
 }
