@@ -15,7 +15,7 @@ const Button = ({
   variant,
 }: ButtonProps) => {
   return (
-    <S.Button onClick={onClick} type={type} $variant={variant}>
+    <S.Button onClick={onClick} type={type} variant={variant}>
       {children}
     </S.Button>
   );
