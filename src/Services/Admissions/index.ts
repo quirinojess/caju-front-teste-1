@@ -1,4 +1,4 @@
-import api from '~/Config/Api';
+import api from '~/config/Api';
 import { TAdmission } from '~/types/TAdmissions';
 
 async function getAdmissions(filterBy?: string, query?: string) {
