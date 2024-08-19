@@ -1,10 +1,10 @@
 export type TAdmissions = Array<TAdmission>;
 
 export type TAdmission = {
-    id?: number;
+    id?: string;
     admissionDate: string;
     email: string;
     employeeName: string;
-    status: string;
+    status:  'REVIEW' | 'APROVED' | 'REPROVED';
     cpf: string;
 }

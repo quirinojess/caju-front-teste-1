@@ -19,3 +19,10 @@ export type TStatusRegistration =
   | null;
 
 export type TStatusFilter = 'REVIEW' | 'APROVED' | 'REPROVED' | 'ALL';
+
+export type TStatusColumn = Array<{
+  status: TStatusColumnIndex;
+  title: string;
+}>;
+
+export type TStatusColumnIndex = 'REVIEW' | 'APROVED' | 'REPROVED';
