@@ -7,22 +7,42 @@ import {
   HiOutlineTrash,
 } from 'react-icons/hi';
 import { TAdmission } from '~/types/TAdmissions';
+import capitalize from '~/utils/Capitalize';
+import { useStatus } from '~/hooks';
 
 type TRegistrationCard = {
   data: any;
-  handleOpenModal: (
-    userId: string,
-    actionType: 'delete' | 'approve' | 'reprove' | 'review',
-    body?: TAdmission,
-  ) => void;
+  handleOpenModal: (userId: string, body?: TAdmission) => void;
 };
 
 const RegistrationCard = ({ data, handleOpenModal }: TRegistrationCard) => {
+  const { setStatusRegistration } = useStatus();
+
+  const handleReprove = () => {
+    setStatusRegistration('REPROVED');
+    handleOpenModal(data.id, { ...data, status: 'REPROVED' });
+  };
+
+  const handleApprove = () => {
+    setStatusRegistration('APROVED');
+    handleOpenModal(data.id, { ...data, status: 'APROVED' });
+  };
+
+  const handleReview = () => {
+    setStatusRegistration('REVIEW');
+    handleOpenModal(data.id, { ...data, status: 'REVIEW' });
+  };
+
+  const handleDelete = () => {
+    setStatusRegistration('DELETE');
+    handleOpenModal(data.id);
+  };
+
   return (
     <S.Card>
       <S.IconAndText>
         <HiOutlineUser />
-        <h3>{data.employeeName}</h3>
+        <h3>{capitalize(data.employeeName)}</h3>
       </S.IconAndText>
       <S.IconAndText>
         <HiOutlineMail />
@@ -36,44 +56,20 @@ const RegistrationCard = ({ data, handleOpenModal }: TRegistrationCard) => {
       <S.Actions>
         {data.status === 'REVIEW' && (
           <>
-            <Buttons
-              variant="REPROVED"
-              onClick={() =>
-                handleOpenModal(data.id, 'reprove', {
-                  ...data,
-                  status: 'REPROVED',
-                })
-              }
-            >
+            <Buttons variant="REPROVED" onClick={handleReprove}>
               Reprovar
             </Buttons>
-            <Buttons
-              variant="APROVED"
-              onClick={() =>
-                handleOpenModal(data.id, 'approve', {
-                  ...data,
-                  status: 'APROVED',
-                })
-              }
-            >
+            <Buttons variant="APROVED" onClick={handleApprove}>
               Aprovar
             </Buttons>
           </>
         )}
         {data.status !== 'REVIEW' && (
-          <Buttons
-            variant="REVIEW"
-            onClick={() =>
-              handleOpenModal(data.id, 'review', {
-                ...data,
-                status: 'REVIEW',
-              })
-            }
-          >
+          <Buttons variant="REVIEW" onClick={handleReview}>
             Revisar novamente
           </Buttons>
         )}
-        <HiOutlineTrash onClick={() => handleOpenModal(data.id, 'delete')} />
+        <HiOutlineTrash onClick={handleDelete} />
       </S.Actions>
     </S.Card>
   );
