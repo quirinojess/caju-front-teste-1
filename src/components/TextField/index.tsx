@@ -7,6 +7,7 @@ type Props = {
   field?: {
     name: string;
     value: string;
+    ariaLabel: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur: () => void;
   };
@@ -18,6 +19,8 @@ const TextField = ({ label, error, field, ...rest }: Props) => {
       <S.Label htmlFor={field?.name}>{label}</S.Label>
       <S.Input
         name={field?.name}
+        id={field?.name}
+        aria-label={field?.name}
         value={field?.value || ''}
         onChange={field?.onChange}
         onBlur={field?.onBlur}
