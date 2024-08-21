@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { RowBetween } from '~/themes/CommonAligns';
 import { ThemeMain } from '~/themes';
-import { TStatusFilter, TStatusColumnIndex  } from '~/types/TStatus';
+import { TStatusFilter, TStatusColumnIndex } from '~/types/TStatus';
 
 const theme = ThemeMain;
 
@@ -25,6 +25,11 @@ const statusRegistrationColumnStyles: {
   },
 };
 
+type StyledColumnProps = {
+  $status?: TStatusFilter;
+  $statusColumn?: TStatusColumnIndex;
+}
+
 export const Container = styled(RowBetween('div'))`
   gap: ${({ theme }) => theme.spacing.large};
   margin-top: ${({ theme }) => theme.spacing.medium};
@@ -34,25 +39,20 @@ export const Container = styled(RowBetween('div'))`
   overflow: hidden;
 `;
 
-export const Column = styled.div<{
-  statusColumn: TStatusColumnIndex;
-  status: TStatusFilter;
-}>`
-  width: ${({ theme, status }) =>
-    status === 'ALL' ? theme.proportions.oneFourth : theme.proportions.full};
-  background-color: ${({ statusColumn }) =>  statusRegistrationColumnStyles[statusColumn]?.background
-  };
+export const Column = styled.div<StyledColumnProps>`
+  width: ${({ theme, $status }) =>
+    $status === 'ALL' ? theme.proportions.oneFourth : theme.proportions.full};
+  background-color: ${({ $statusColumn }) =>
+    $statusColumn ? statusRegistrationColumnStyles[$statusColumn]?.background : theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: ${({ theme }) => theme.proportions.full};
   }
 `;
 
-export const TitleColumn = styled.h3<{
-  statusColumn:  TStatusColumnIndex;
-}>`
-  color: ${({ statusColumn }) =>
-    statusRegistrationColumnStyles[statusColumn].title};
+export const TitleColumn = styled.h3<StyledColumnProps>`
+  color: ${({ $statusColumn }) =>
+    $statusColumn ? statusRegistrationColumnStyles[$statusColumn]?.title : theme.colors.darkDeep};
   margin: ${({ theme }) => theme.spacing.large};
 `;
 
