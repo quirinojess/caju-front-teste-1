@@ -1,19 +1,7 @@
-import { TStatusRegistration } from '~/types/TStatus';
+import { TButton } from '~/types/TButton';
 import * as S from './styled';
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
-  variant?: TStatusRegistration;
-}
-
-const Button = ({
-  children,
-  onClick,
-  type = 'button',
-  variant,
-}: ButtonProps) => {
+const Button = ({ children, onClick, type = 'button', variant }: TButton) => {
   return (
     <S.Button onClick={onClick} type={type} variant={variant}>
       {children}
