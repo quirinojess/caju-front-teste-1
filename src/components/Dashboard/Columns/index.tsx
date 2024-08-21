@@ -2,8 +2,9 @@ import * as S from './styled';
 import RegistrationCard from '../RegistrationCard';
 import { TAdmission, TAdmissions } from '~/types/TAdmissions';
 import { useStatus } from '~/hooks';
+import { TStatusColumn } from '~/types/TStatus';
 
-const allColumns = [
+const allColumns: TStatusColumn = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
   { status: 'APROVED', title: 'Aprovado' },
   { status: 'REPROVED', title: 'Reprovado' },

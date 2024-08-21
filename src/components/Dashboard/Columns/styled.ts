@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { RowBetween } from '~/themes/CommonAligns';
 import { ThemeMain } from '~/themes';
-import { TStatusFilter } from '~/types/TStatus';
+import { TStatusFilter, TStatusColumnIndex  } from '~/types/TStatus';
 
 const theme = ThemeMain;
 
 const statusRegistrationColumnStyles: {
-  [key in Exclude<TStatusFilter, 'ALL'>]: {
+  [key in TStatusColumnIndex]: {
     background: string;
     title: string;
   };
@@ -35,7 +35,7 @@ export const Container = styled(RowBetween('div'))`
 `;
 
 export const Column = styled.div<{
-  statusColumn: Exclude<TStatusFilter, 'ALL'>;
+  statusColumn: TStatusColumnIndex;
   status: TStatusFilter;
 }>`
   width: ${({ theme, status }) =>
@@ -49,7 +49,7 @@ export const Column = styled.div<{
 `;
 
 export const TitleColumn = styled.h3<{
-  statusColumn:  Exclude<TStatusFilter, 'ALL'>;
+  statusColumn:  TStatusColumnIndex;
 }>`
   color: ${({ statusColumn }) =>
     statusRegistrationColumnStyles[statusColumn].title};

@@ -7,7 +7,7 @@ export const InputControl = styled.div`
   }
 `;
 
-export const Label = styled.div`
+export const Label = styled.label`
   font-size: ${({ theme }) => theme.typography.small};
   color: ${({ theme }) => theme.colors.darkDeep};
   font-weight: 600;
