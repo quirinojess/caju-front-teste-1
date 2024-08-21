@@ -26,12 +26,12 @@ const Columns = ({ registrations = [], handleOpenModal }: TColumns) => {
 
         return (
           <S.Column
-            statusColumn={column.status}
+            $statusColumn={column.status}
             key={column.status}
-            status={statusFilter}
+            $status={statusFilter}
           >
             <>
-              <S.TitleColumn statusColumn={column.status}>
+              <S.TitleColumn $statusColumn={column.status}>
                 {column.title}
               </S.TitleColumn>
               <S.CollumContent>
