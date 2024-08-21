@@ -36,10 +36,10 @@ describe('SearchBar Component', () => {
     renderWithTheme(<SearchBar loadAdmissions={loadAdmissions} />);
 
     fireEvent.change(screen.getByPlaceholderText('Filtre por CPF'), {
-      target: { value: '123.456.789-00' },
+      target: { value: '422.003.410-24' },
     });
 
-    expect(loadAdmissions).toHaveBeenCalledWith('cpf', '123.456.789-00');
+    expect(loadAdmissions).toHaveBeenCalledWith('cpf', '422.003.410-24');
     expect(setStatusFilter).toHaveBeenCalledWith('ALL');
   });
 
@@ -71,7 +71,7 @@ describe('SearchBar Component', () => {
     renderWithTheme(<SearchBar loadAdmissions={loadAdmissions} />);
 
     fireEvent.change(screen.getByPlaceholderText('Filtre por CPF'), {
-      target: { value: '12345678900' },
+      target: { value: '539.905.020-01' },
     });
 
     expect(toast.error).toHaveBeenCalledWith('CPF inválido');
