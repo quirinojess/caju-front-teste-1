@@ -1,0 +1,38 @@
+name: Clean Git History
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean-history:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download BFG Repo-Cleaner
+        run: |
+          wget https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar -O bfg.jar
+
+      - name: Create replace.txt
+        run: |
+          echo 'chpt_2d5c677a313d3da==>REDACTED' > replace.txt
+
+      - name: Run BFG Repo-Cleaner
+        run: |
+          java -jar bfg.jar --replace-text replace.txt
+
+      - name: Clean up the repository
+        run: |
+          # Limpar o histórico do repositório
+          git reflog expire --expire=now --all
+          git gc --prune=now --aggressive
+
+      - name: Push changes
+        run: |
+          git remote add cleaned https://github.com/quirinojess/caju-front-teste-1.git
+          git push cleaned --force --all
+          git push cleaned --force --tags
