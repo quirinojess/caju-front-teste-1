@@ -6,10 +6,7 @@ import { useEffect, useState } from 'react';
 import { cpfMask, isValidCpf } from '~/utils/cpfHelpers';
 import { toast } from 'react-toastify';
 import { useStatus } from '~/hooks';
-
-type TSearchBar = {
-  loadAdmissions: (filterBy?: string, query?: string) => void;
-};
+import { TSearchBar } from '~/types/TComponents';
 
 const SearchBar = ({ loadAdmissions }: TSearchBar) => {
   const [cpf, setCpf] = useState<string>('');

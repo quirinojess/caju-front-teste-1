@@ -1,4 +1,4 @@
-import { TButton } from '~/types/TButton';
+import { TButton } from '~/types/TComponents';
 import * as S from './styled';
 
 const Button = ({ children, onClick, type = 'button', variant }: TButton) => {

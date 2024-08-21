@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import Button from './Button';
 import { TStatusRegistration } from '~/types/TStatus';
-import { TButton } from '~/types/TButton';
+import { TButton } from '~/types/TComponents';
 
 export default {
   title: 'Components/Button',

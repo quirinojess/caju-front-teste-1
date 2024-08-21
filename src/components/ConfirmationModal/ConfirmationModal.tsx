@@ -1,12 +1,6 @@
 import { Button } from '~/components';
 import * as S from './styled';
-
-type TConfirmationModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  message: string;
-};
+import { TConfirmationModalProps } from '~/types/TComponents';
 
 const ConfirmationModal: React.FC<TConfirmationModalProps> = ({
   isOpen,

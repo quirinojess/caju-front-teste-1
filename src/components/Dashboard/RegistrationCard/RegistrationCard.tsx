@@ -6,14 +6,9 @@ import {
   HiOutlineCalendar,
   HiOutlineTrash,
 } from 'react-icons/hi';
-import { TAdmission } from '~/types/TAdmissions';
 import capitalize from '~/utils/Capitalize';
 import { useStatus } from '~/hooks';
-
-type TRegistrationCard = {
-  data: any;
-  handleOpenModal: (userId: string, body?: TAdmission) => void;
-};
+import { TRegistrationCard } from '~/types/TComponents';
 
 const RegistrationCard = ({ data, handleOpenModal }: TRegistrationCard) => {
   const { setStatusRegistration } = useStatus();
