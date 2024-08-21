@@ -1,19 +1,7 @@
-import { InputHTMLAttributes } from 'react';
+import { TForm } from '~/types/TForm';
 import * as S from './styled';
 
-type Props = {
-  label?: string;
-  error?: string;
-  field?: {
-    name: string;
-    value: string;
-    ariaLabel: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onBlur: () => void;
-  };
-} & InputHTMLAttributes<any>;
-
-const TextField = ({ label, error, field, ...rest }: Props) => {
+const TextField = ({ label, error, field, ...rest }: TForm) => {
   return (
     <S.InputControl>
       <S.Label htmlFor={field?.name}>{label}</S.Label>
