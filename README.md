@@ -1,113 +1,35 @@
-
 # Caju Front End Teste
 
-Esse é um teste para você demonstrar suas experiencia como front end, a aplicação basicamente se divide em duas telas, o `Dashboard` e um `Formulário`.
-Voce deverá criar uma plataforma de admissão que permita o usuario adicionar uma admissão com as opções de aprovar, reprovar ou excluir.
+This is a test version application developed with TypeScript/React, aimed at creating a modern and scalable application. We use a modular architecture to ensure that the code is clean and easy to maintain.
 
-O `Dashboard` mostra todas as admissões criadas, com as opções de Aprovar, reprovar, e excluir.
+The application is divided into two main screens: the `Dashboard` and `New User`.
 
-![Screenshot 2024-06-11 at 11 48 24 AM](https://github.com/caju-beneficios/caju-front-teste-1/assets/31169925/fedeff5c-a0d3-4df1-aebd-1f2d25c56a48)
+## Descrição
 
-Dashboard com os cards. (Utilize o componente `RegistrationCard`)
+The admissions platform allows the user to add admissions and manage them with options to approve, reject, or delete. It is divided as follows:
 
-![Screenshot 2024-06-11 at 1 52 35 PM](https://github.com/caju-beneficios/caju-front-teste-1/assets/31169925/3b002341-454b-4b24-82cb-6390656b56cc)
+- **Dashboard**: Displays all created admissions with options to approve, reject, and delete.
+  ![image](https://github.com/user-attachments/assets/e2aa2d6b-10cd-4030-a0b8-dbf1e37152ad)
 
-O `Formulario` exibe um formulário simples que será utilizado para preencher o dashboard com os dados.
+- **New User**: Used to fill in new admissions.
+  ![image](https://github.com/user-attachments/assets/62959767-23ab-4af2-bb48-8dffabe54d4c)
 
-![Screenshot 2024-06-11 at 11 48 47 AM](https://github.com/caju-beneficios/caju-front-teste-1/assets/31169925/bbbb211c-165f-40e5-b2af-61adafd61398)
+## Prerequisites
 
-## Apresentanção do problema
+- Node.js (v18 ou superior)
+- Yarn
 
-O desafio é melhorar a organização do projeto, refatorar o código e implementar algumas regras e novas funcionalidades(logo abaixo).
-Sinta-se a vontade para criar novas pastas, novos utils, contextos, custom hooks, o que achar melhor para deixar o projeto mais organizado e atigir as especificações abaixo.
-
-
-## Especificações
-
-### Dashboard
-  
-- Implementar `GET` ao carregar a pagina e ao fazer pequisa por `CPF`
-- Filtrar os cards por coluna, usando o status.
-- Implementar `PUT` ao clicar em Reprovar e alterar o status para `REPROVED`
-- Implementar `PUT` ao clicar em Aprovar e alterar o status para `APPROVED`
-- Implementar `PUT` ao clicar em Revisar novamente e alterar o status para `REVIEW`
-- Implementar `DELETE` ao clicar no lixeira no card.
-- Implementar um loading na tela ao realizar requisições.
-- Realizar a requisição automaticamente ao preencher um CPF válido completo
-- Atualizar os dados (refetch) ao clicar no icone de atualizar
-- Adicionar máscara de CPF no campo de pesquisa.
-
-### Pesquisa por CPF
-
-Para realizar a pesquisa por CPF, utilize essa funcionalidade do json-web-server:
-<br/>
-https://github.com/typicode/json-server/tree/v0?tab=readme-ov-file#filter
-
-### Formulário
-
-- Implementar validação no campo de `email` para que aceite apenas emails válidos
-- Implementar validação no campo `nome completo` para que aceite pelo menos um espaço, no mínimo duas letras, e que a primeira letra não seja um número.
-- Implementar validação no campo CPF para aceitar apenas CPFs válidos e adicionar uma máscara de CPF ao campo.
-- Implementar `POST` ao preencher todos os campos corretamentes.
-- Redirecionar ao `/dashboard` ao criar uma nova registration.
-
-## Regras de negócio
-
-- Implementar tipagem correta e enums em TypeScript.
-- Todas as requisições devem ter modal de confirmação da ação
-- Todas as requisições devem aparecer uma notificação de sucesso ou erro
-- O botão de `Reprovar` e `Aprovar` só deve aparecer em registrations com status `REVIEW` 
-- O botão `Revisar novamente` só deve aparecer em registration com status `REPROVED` ou `APPROVED`
-
-## API
-Você consumirá uma API mockada localmente, que será executada utilizando o json-server. Para mais informações consulte a [documentação](https://github.com/typicode/json-server/).
-
-Exemplo de Requisição:
-
-```
-POST http://localhost:3000/registrations
-Content-Type: application/json
-{
-  "admissionDate": "23/10/2023",
-  "email": "maria@caju.com.br",
-  "employeeName": "Maria Silva",
-  "status": "REVIEW",
-  "cpf": "12345678901"
-}
-```
-
-
-## Extras (opcional)
-
-- Testes Unitários e de Integração `(Obrigátorio para Senior e Tech Lead)`
-- End-to-End (E2E) 
-- Documentação detalhada utilizando Storybook e Docusaurus
-- Configuração de CI/CD com deploy automatizado
-
-## Dicas e sugestões
-
-- Crie custom hooks para separar a lógica da camada de UI
-- Utilize alguma lib de validação para o formulário
-- Crie testes que simulem o comportamento esperado do usuario
-
-### Sua performance será avaliada com base nos seguintes pontos:
-
-- A aplicação funciona conforme o esperado e tem uma estrutura lógica bem organizada
-- Se preocupou com a experiência do usuário
-- Os problemas foram resolvidos com eficiência
-- O código é de fácil leitura
-- Demonstra conhecimento de como testar as partes críticas da aplicação. Não exigimos 100% de cobertura
-
-## Desenvolvimento
+## Installing
 
 ```shell
-git clone https://github.com/caju-beneficios/caju-front-teste-1.git
+git clone https://github.com/quirinojess/caju-front-teste-1.git
 cd caju-front-test-1
-yarn 
+yarn
 yarn dev
 ```
 
-Abra outro terminal e execute: 
+Open another terminal and execute:
+
 ```shell
 yarn init:db
 ```
@@ -117,13 +39,125 @@ Para os testes
 ```shell
 yarn test:dev
 ```
-Se tude tiver dado certo as seguintes portas estarão disponiveis:
+
+If everything went well, the following ports will be available:
 <br/>
 
-Aplicação http://localhost:3001/
+App http://localhost:3001/
 <br/>
 Json Web Server http://localhost:3000/
 
-``
-Para concluir o desenvolvimento, clone o repositório, faça as edições necessárias e depois envie a URL do novo repositório com suas alterações para o RH.
-``
+## Project Structure
+
+**components/** # Reusable components
+**config/** # Configurations
+**contexts/** # Global contexts
+**hooks/** # Custom hooks
+**pages/** # Main pages
+**router/** # Routes
+**services/** # Services from API
+**tests/** # Tests config
+**themes/** # Global styles
+**types/** # Type definitions
+**utils/** # Utilities
+**App.tsx** # Main component
+**index.tsx** # Application entry point
+
+## Important Dependencies
+
+### Overview
+
+This section lists the key dependencies used in the project, providing a brief description of each and its role. This helps in understanding the technology stack and facilitates easier maintenance and onboarding.
+
+### List of Dependencies
+
+1.  **Storybook**
+
+    - **Description:** A tool for developing and testing UI components in isolation. It helps visualize component states and interactions during development.
+    - **Documentation:** [Storybook Documentation](https://storybook.js.org/docs)
+
+2.  **Styled-Components**
+
+    - **Description:** A library for styling components using CSS-in-JS. It allows for scoped and dynamic styling of React components.
+    - **Documentation:** [Styled-Components Documentation](https://styled-components.com/docs)
+
+3.  **Axios**
+
+    - **Description:** A promise-based HTTP client for making requests to external APIs. It simplifies handling and processing HTTP requests.
+    - **Documentation:** [Axios Documentation](https://axios-http.com/ptbr/docs/intro)
+
+4.  **React Hook Form**
+
+    - **Description:** A library for managing form state and validation in React applications. It provides a simple API for handling form inputs and validation.
+    - **Documentation:** [React Hook Form Documentation](https://react-hook-form.com/)
+
+5.  **React Icons**
+
+    - **Description:** A library providing popular icons as React components. It allows easy integration and usage of icons in your React project.
+    - **Documentation:** [React Icons Documentation](https://react-icons.github.io/react-icons/)
+
+6.  **React Router DOM**
+
+    - **Description:** A library for routing in React applications. It enables navigation and routing within the application, managing different views and URLs.
+    - **Documentation:** [React Router DOM Documentation](https://reactrouter.com/)
+
+### Adding New Dependencies
+
+If you need to add new dependencies to the project:
+
+1.  **Install Dependency:** Use the appropriate command to add the dependency.
+
+>     bash
+
+## Code Structure
+
+### Components
+
+- **Component:** Each component should have its own dedicated folder.
+- **TSX File:** The React component is defined here.
+- **Stories File:** Contains stories that showcase different states and variations of the component using Storybook.
+- **Styled TS File:** Contains styles using `styled-components`.
+- **Test File:** Unit tests for the component.
+
+_**Note:** All components should be exported from the `index.ts` file in the components folder._
+
+### Hooks
+
+- **Custom Hooks:** Stored in `/hooks`. Each hook should be exported with its name followed by the function.
+
+_**Note:** All hooks should be exported from the `index.ts` file in the hooks folder._
+
+### Contexts
+
+- **Contexts:** Defined in `/contexts`. Each context should provide a `Provider` and a custom hook for accessing the context.
+
+_**Note:** All contexts should be exported from the `index.ts` file in the contexts folder._
+
+### Pages
+
+- **Pages:** Each page should be a React component and located in `/pages`. Pages should be composed of reusable components.
+
+### Services
+
+- **Services:** Files responsible for communicating with APIs and handling external data.
+
+### Utilities
+
+- **Utilities:** Auxiliary and utility functions should be stored in `/utils`.
+
+### Types
+
+- **Types:** Defined in `types.ts`. We use TypeScript to ensure robust types and avoid common errors.
+
+## Best Practices
+
+- **Clean Code:** Keep the code clean and well-documented. Use descriptive variable and function names.
+- **Component Reuse:** Reuse components whenever possible to avoid code duplication.
+- **Testing:** Write tests for components and hooks. Use `React Testing Library` and `Jest`.
+- **Documentation:** Comment the code clearly and keep the documentation up to date.
+
+### Future Improvements
+
+To further enhance both user experience and technical robustness, several key improvements are planned. For user experience, we will develop a more functional menu, including a mobile version to ensure seamless navigation across devices. Additionally, we will introduce descriptive titles and paragraphs on the registration page to clearly outline actions and rules. A footer will be added with navigation buttons, such as "back to previous page" and "scroll to top," to facilitate easier navigation. Visual refinements, as identified through Storybook tests, will also be implemented to ensure a polished and intuitive interface.
+
+On the technical side, we will integrate `import.meta.env` with Jest testing standards to ensure environment variables are properly recognized during tests. Comprehensive testing will be conducted on APIs and services to validate system performance and integrity. These enhancements aim to provide a superior user experience and a robust technical foundation for the project.

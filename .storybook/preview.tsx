@@ -1,11 +1,9 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { ThemeMain, GlobalStyle } from '../src/themes';
+import { ThemeMain, GlobalStyles } from '../src/themes';
 import { ThemeProvider } from 'styled-components';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
-import { StatusProvider } from '../src/contexts/StatusContext';
-
-const GlobalStyles = GlobalStyle;
+import { StatusProvider } from '../src/contexts/StatusContext/StatusContext';
 
 const preview: Preview = {
   parameters: {
