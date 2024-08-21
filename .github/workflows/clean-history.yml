@@ -15,7 +15,7 @@ jobs:
 
       - name: Download BFG Repo-Cleaner
         run: |
-          wget https://repo1.maven.org/maven2/com/madgag/bfg-repo-cleaner/1.14.0/bfg-repo-cleaner-1.14.0.jar -O bfg.jar
+          wget https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar -O bfg.jar
 
       - name: Create replace.txt
         run: |
