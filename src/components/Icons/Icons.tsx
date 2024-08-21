@@ -1,10 +1,7 @@
+import { TIcons } from '~/types/TComponents';
 import * as S from './styled';
 
-type IconsProps = {
-  children?: React.ReactNode;
-} & React.HTMLAttributes<HTMLButtonElement>;
-
-const Icons = (props: IconsProps) => {
+const Icons = (props: TIcons) => {
   return <S.IconStyled {...props}>{props.children}</S.IconStyled>;
 };
 

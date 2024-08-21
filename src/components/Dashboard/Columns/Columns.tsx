@@ -1,19 +1,15 @@
 import * as S from './styled';
 import RegistrationCard from '../RegistrationCard/RegistrationCard';
-import { TAdmission, TAdmissions } from '~/types/TAdmissions';
+import { TAdmission } from '~/types/TAdmissions';
 import { useStatus } from '~/hooks';
 import { TStatusColumn } from '~/types/TStatus';
+import { TColumns } from '~/types/TComponents';
 
 const allColumns: TStatusColumn = [
   { status: 'REVIEW', title: 'Pronto para revisar' },
   { status: 'APROVED', title: 'Aprovado' },
   { status: 'REPROVED', title: 'Reprovado' },
 ];
-
-type TColumns = {
-  registrations?: TAdmissions;
-  handleOpenModal: (userId: string, body?: TAdmission) => void;
-};
 
 const Columns = ({ registrations = [], handleOpenModal }: TColumns) => {
   const { statusFilter } = useStatus();
