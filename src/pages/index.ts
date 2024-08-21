@@ -1,2 +1,2 @@
-export { default as DashboardPage } from "./Dashboard";
-export { default as NewUserPage } from "./NewUser";
+export { default as DashboardPage } from "./Dashboard/Dashboard";
+export { default as NewUserPage } from "./NewUser/NewUser";
