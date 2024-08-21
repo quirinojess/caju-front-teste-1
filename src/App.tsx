@@ -8,11 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { StatusProvider } from './contexts/StatusContext/StatusContext';
 
 function App() {
+  const basePath = import.meta.env.VITE_API_URL;
+
   return (
     <ThemeProvider theme={ThemeMain}>
       <StatusProvider>
         <GlobalStyles />
-        <BrowserRouter>
+        <BrowserRouter basename={basePath}>
           <Header />
           <ToastContainer />
           <Router />
