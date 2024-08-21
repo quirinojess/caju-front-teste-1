@@ -1,14 +1,24 @@
-import Router from "~/router";
-import { Header } from "./components/Header";
+import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { Header } from '~/components';
+import { GlobalStyles, ThemeMain } from '~/themes';
+import Router from './router/Router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { StatusProvider } from './contexts/StatusContext/StatusContext';
 
 function App() {
   return (
-    <>
-      <Header>
-        <h1>Caju Front Teste</h1>
-      </Header>
-      <Router />
-    </>
+    <ThemeProvider theme={ThemeMain}>
+      <StatusProvider>
+        <GlobalStyles />
+        <BrowserRouter>
+          <Header />
+          <ToastContainer />
+          <Router />
+        </BrowserRouter>
+      </StatusProvider>
+    </ThemeProvider>
   );
 }
 
