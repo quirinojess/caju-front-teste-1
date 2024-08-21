@@ -19,7 +19,7 @@ jobs:
 
       - name: Create replace.txt
         run: |
-          echo 'REDACTED==>REDACTED' > replace.txt
+          echo 'chpt_2d5c677a313d3da==>REDACTED' > replace.txt
 
       - name: Run BFG Repo-Cleaner
         run: |
@@ -28,7 +28,7 @@ jobs:
       - name: Clean up the repository
         run: |
           # Limpar o histórico do repositório
-          git reflog expire --expire=now --all-ref --cleanup=skew
+          git reflog expire --expire=now --all
           git gc --prune=now --aggressive
 
       - name: Push changes
